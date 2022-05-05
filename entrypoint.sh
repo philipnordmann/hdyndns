@@ -2,7 +2,6 @@
 
 while true; do
     /opt/hdyndns/hdyndns.py \
-        --delete \
         --name ${SUBDOMAIN_NAMES} \
         --hetzner-token ${HETZNER_TOKEN} \
         --hetzner-zone-id ${HETZNER_ZONE_ID}
