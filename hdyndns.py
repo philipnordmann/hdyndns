@@ -44,11 +44,6 @@ def configure_dns(clients, hetzner_zone_id, hetzner_token, delete=False):
             else:
                 print(f'posting new ip {client_ip} for {client_name}')
                 r = requests.post(url=record_post_url, headers=headers, json=payload)
-        if delete:
-            for record in existing_records.keys():
-                if record.endswith('.zt') and record not in client_names:
-                    requests.delete(url=record_id_url.format(record_id=existing_records[record]['id']), headers=headers)
-                    print(f'deleted {record}, it was not found in zerotier anymore')
     else:
         return
 
@@ -57,7 +52,6 @@ def main():
     parser.add_argument('--names', required=True, help="subdomain to update", nargs="+")
     parser.add_argument('--hetzner-token', '--ht', dest='hetzner_token', required=True, help="Hetzner api token")
     parser.add_argument('--hetzner-zone-id', '--hzi', dest='hetzner_zone_id', required=True, help="Hetzner zone id")
-    parser.add_argument('--delete', '-d', action='store_true', help="sets flag to delete non existing entries")
     args = parser.parse_args()
 
 
