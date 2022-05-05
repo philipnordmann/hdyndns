@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+  ztdns:
+    image: ghcr.io/philipnordmann/hdyndns:latest
+    environment:
+      - SUBDOMAIN_NAME=<your subdomain name>
+      - HETZNER_TOKEN=<your hetzner api token>
+      - HETZNER_ZONE_ID=<your hertzner dns zone id>
+    restart: unless-stopped
