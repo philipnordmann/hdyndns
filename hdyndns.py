@@ -54,7 +54,7 @@ def configure_dns(clients, hetzner_zone_id, hetzner_token, delete=False):
 
 def main():
     parser = ArgumentParser()
-    parser.add_argument('--name', required=True, help="subdomain to update")
+    parser.add_argument('--names', required=True, help="subdomain to update", nargs="+")
     parser.add_argument('--hetzner-token', '--ht', dest='hetzner_token', required=True, help="Hetzner api token")
     parser.add_argument('--hetzner-zone-id', '--hzi', dest='hetzner_zone_id', required=True, help="Hetzner zone id")
     parser.add_argument('--delete', '-d', action='store_true', help="sets flag to delete non existing entries")
@@ -63,11 +63,13 @@ def main():
 
     client_ip = get_public_ip()
     if client_ip:
-        client = {
-            "name": args.name,
-            "ip": client_ip
-        }
-        configure_dns([client], args.hetzner_zone_id, args.hetzner_token, delete=args.delete)
+        clients = list()
+        for name in args.names:
+            clients.append({
+                "name": name,
+                "ip": client_ip
+            })
+        configure_dns(clients, args.hetzner_zone_id, args.hetzner_token, delete=args.delete)
 
 if __name__ == '__main__':
     main()
