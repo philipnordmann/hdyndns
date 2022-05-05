@@ -63,7 +63,7 @@ def main():
                 "name": name,
                 "ip": client_ip
             })
-        configure_dns(clients, args.hetzner_zone_id, args.hetzner_token, delete=args.delete)
+        configure_dns(clients, args.hetzner_zone_id, args.hetzner_token)
 
 if __name__ == '__main__':
     main()
